@@ -4,11 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CreditCard } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Separator } from "@/components/ui/separator";
+import { ArrowLeft, CreditCard } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
-import Header from '@/components/Header';
-import OrderSummary from '@/components/OrderSummary';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -35,9 +34,9 @@ const Checkout = () => {
       quantity: 2
     }
   ];
-  
-  const deliveryFee = 50;
+
   const subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const deliveryFee = 50;
   const total = subtotal + deliveryFee;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +61,19 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header title="Оплата замовлення" backLink="/cart" />
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Link to="/cart">
+              <Button variant="ghost" size="icon">
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+            </Link>
+            <h1 className="text-xl font-bold">Оплата замовлення</h1>
+          </div>
+        </div>
+      </header>
 
       <div className="container max-w-xl mx-auto px-4 py-6">
         {/* Order Summary */}
@@ -72,7 +83,31 @@ const Checkout = () => {
             <CardDescription>Перевірте деталі вашого замовлення</CardDescription>
           </CardHeader>
           <CardContent>
-            <OrderSummary items={orderItems} deliveryFee={deliveryFee} />
+            <div className="space-y-3">
+              {orderItems.map((item) => (
+                <div key={item.id} className="flex justify-between items-center">
+                  <div>
+                    <span className="font-medium">{item.name}</span>
+                    <span className="text-gray-500 ml-2">x{item.quantity}</span>
+                  </div>
+                  <span>{item.price * item.quantity} ₴</span>
+                </div>
+              ))}
+              <Separator className="my-2" />
+              <div className="flex justify-between">
+                <span className="text-gray-600">Вартість страв</span>
+                <span>{subtotal} ₴</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Доставка</span>
+                <span>{deliveryFee} ₴</span>
+              </div>
+              <Separator className="my-2" />
+              <div className="flex justify-between font-bold">
+                <span>Всього до оплати</span>
+                <span>{total} ₴</span>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
