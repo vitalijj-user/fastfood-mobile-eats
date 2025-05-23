@@ -51,11 +51,11 @@ const Checkout = () => {
     e.preventDefault();
     toast({
       title: "Замовлення підтверджено!",
-      description: "Дякуємо за ваше замовлення. Вам прийде повідомлення з деталями доставки."
+      description: "Дякуємо за ваше замовлення. Перенаправляємо на сторінку відстеження..."
     });
     // In a real app, you would process the payment here
     setTimeout(() => {
-      navigate('/');
+      navigate('/order-details');
     }, 2000);
   };
 
