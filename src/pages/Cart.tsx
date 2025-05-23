@@ -148,9 +148,11 @@ const Cart = () => {
                   <span>{total} ₴</span>
                 </div>
               </div>
-              <Button className="w-full bg-orange-500 hover:bg-orange-600 mt-2">
-                Оформити замовлення
-              </Button>
+              <Link to="/checkout">
+                <Button className="w-full bg-orange-500 hover:bg-orange-600 mt-2">
+                  Оформити замовлення
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         </div>
