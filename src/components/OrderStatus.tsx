@@ -1,10 +1,10 @@
 
-import { Clock, CheckCircle, Package, Utensils, Truck } from "lucide-react";
+import { Clock, CheckCircle, Package, Utensils } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
-type OrderStatus = "pending" | "preparing" | "ready" | "issued" | "completed";
+type OrderStatus = "pending" | "preparing" | "ready" | "completed";
 
 interface OrderStatusProps {
   status: OrderStatus;
@@ -27,7 +27,7 @@ const OrderStatus = ({ status, timeRemaining, orderId }: OrderStatusProps) => {
         return {
           label: "Нове замовлення",
           description: "Очікує на обробку",
-          progress: 10,
+          progress: 25,
           color: "bg-amber-500",
           badgeVariant: "secondary" as const,
           icon: Clock,
@@ -37,7 +37,7 @@ const OrderStatus = ({ status, timeRemaining, orderId }: OrderStatusProps) => {
         return {
           label: "Готується",
           description: "Замовлення готується на кухні",
-          progress: 40,
+          progress: 50,
           color: "bg-blue-500",
           badgeVariant: "default" as const,
           icon: Utensils,
@@ -47,21 +47,11 @@ const OrderStatus = ({ status, timeRemaining, orderId }: OrderStatusProps) => {
         return {
           label: "Готово",
           description: "Замовлення готове до видачі",
-          progress: 70,
+          progress: 75,
           color: "bg-green-500",
           badgeVariant: "default" as const,
           icon: Package,
           iconColor: "text-green-600",
-        };
-      case "issued":
-        return {
-          label: "Видано",
-          description: "Замовлення видано клієнту",
-          progress: 90,
-          color: "bg-purple-500",
-          badgeVariant: "default" as const,
-          icon: Truck,
-          iconColor: "text-purple-600",
         };
       case "completed":
         return {
@@ -135,19 +125,6 @@ const OrderStatus = ({ status, timeRemaining, orderId }: OrderStatusProps) => {
         </Alert>
       )}
 
-      {/* Issued Alert */}
-      {status === "issued" && (
-        <Alert className="bg-purple-50 border-purple-200">
-          <Truck className="h-4 w-4 text-purple-600" />
-          <AlertTitle className="text-purple-700">
-            Замовлення видано!
-          </AlertTitle>
-          <AlertDescription className="text-purple-600">
-            Ваше замовлення було успішно видано
-          </AlertDescription>
-        </Alert>
-      )}
-
       {/* Completed Alert */}
       {status === "completed" && (
         <Alert className="bg-green-50 border-green-200">
@@ -169,22 +146,18 @@ const OrderStatus = ({ status, timeRemaining, orderId }: OrderStatusProps) => {
         />
         
         {/* Status Steps */}
-        <div className="grid grid-cols-5 text-xs">
+        <div className="grid grid-cols-4 text-xs">
           <div className={`text-center ${status !== "pending" ? "text-green-600 font-semibold" : "text-gray-400"}`}>
             <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${status !== "pending" ? "bg-green-500" : "bg-gray-300"}`}></div>
-            Прийнято
+            Нове
           </div>
-          <div className={`text-center ${status === "preparing" || status === "ready" || status === "issued" || status === "completed" ? "text-green-600 font-semibold" : "text-gray-400"}`}>
-            <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${status === "preparing" || status === "ready" || status === "issued" || status === "completed" ? "bg-green-500" : "bg-gray-300"}`}></div>
+          <div className={`text-center ${status === "preparing" || status === "ready" || status === "completed" ? "text-green-600 font-semibold" : "text-gray-400"}`}>
+            <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${status === "preparing" || status === "ready" || status === "completed" ? "bg-green-500" : "bg-gray-300"}`}></div>
             Готується
           </div>
-          <div className={`text-center ${status === "ready" || status === "issued" || status === "completed" ? "text-green-600 font-semibold" : "text-gray-400"}`}>
-            <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${status === "ready" || status === "issued" || status === "completed" ? "bg-green-500" : "bg-gray-300"}`}></div>
-            Готове
-          </div>
-          <div className={`text-center ${status === "issued" || status === "completed" ? "text-green-600 font-semibold" : "text-gray-400"}`}>
-            <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${status === "issued" || status === "completed" ? "bg-green-500" : "bg-gray-300"}`}></div>
-            Видано
+          <div className={`text-center ${status === "ready" || status === "completed" ? "text-green-600 font-semibold" : "text-gray-400"}`}>
+            <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${status === "ready" || status === "completed" ? "bg-green-500" : "bg-gray-300"}`}></div>
+            Готово
           </div>
           <div className={`text-center ${status === "completed" ? "text-green-600 font-semibold" : "text-gray-400"}`}>
             <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${status === "completed" ? "bg-green-500" : "bg-gray-300"}`}></div>

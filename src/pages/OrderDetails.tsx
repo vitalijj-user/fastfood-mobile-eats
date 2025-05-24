@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +16,7 @@ import NavigateHeader from "@/components/NavigateHeader";
 import OrderStatus from "@/components/OrderStatus";
 
 // Order status types - renamed to avoid conflict with component
-type OrderStatusType = "pending" | "preparing" | "ready" | "issued" | "completed";
+type OrderStatusType = "pending" | "preparing" | "ready" | "completed";
 
 const OrderDetails = () => {
   const { toast } = useToast();
@@ -68,28 +67,18 @@ const OrderDetails = () => {
       });
     }, 20000);
 
-    // Change from ready to issued after 30 seconds
-    const issuedTimer = setTimeout(() => {
-      setOrderStatus("issued");
-      toast({
-        title: "Замовлення видано!",
-        description: "Ваше замовлення було видано.",
-      });
-    }, 35000);
-
-    // Change from issued to completed after 35 seconds
+    // Change from ready to completed after 30 seconds
     const completedTimer = setTimeout(() => {
       setOrderStatus("completed");
       toast({
         title: "Замовлення завершено!",
         description: "Дякуємо за ваше замовлення!",
       });
-    }, 40000);
+    }, 35000);
 
     return () => {
       clearTimeout(prepareTimer);
       clearTimeout(readyTimer);
-      clearTimeout(issuedTimer);
       clearTimeout(completedTimer);
     };
   }, [toast]);
