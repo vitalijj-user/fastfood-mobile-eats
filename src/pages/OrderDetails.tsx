@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +17,7 @@ import NavigateHeader from "@/components/NavigateHeader";
 import OrderStatus from "@/components/OrderStatus";
 
 // Order status types - renamed to avoid conflict with component
-type OrderStatusType = "pending" | "accepted" | "preparing" | "ready" | "completed";
+type OrderStatusType = "pending" | "preparing" | "ready" | "issued" | "completed";
 
 const OrderDetails = () => {
   const { toast } = useToast();
@@ -49,44 +50,54 @@ const OrderDetails = () => {
 
   // Simulate order status changes
   useEffect(() => {
-    // Change from pending to accepted after 5 seconds
-    const acceptTimer = setTimeout(() => {
-      setOrderStatus("accepted");
-      toast({
-        title: "Замовлення прийнято!",
-        description: "Ресторан почав готувати ваше замовлення.",
-      });
-    }, 5000);
-
-    // Change from accepted to preparing after 10 seconds
+    // Change from pending to preparing after 5 seconds
     const prepareTimer = setTimeout(() => {
       setOrderStatus("preparing");
       toast({
-        title: "Ваше замовлення готується!",
-        description: "Шеф-кухар вже працює над вашим замовленням.",
+        title: "Замовлення готується!",
+        description: "Шеф-кухар почав готувати ваше замовлення.",
       });
-    }, 15000);
+    }, 5000);
 
-    // Change from preparing to ready after 30 seconds
+    // Change from preparing to ready after 15 seconds
     const readyTimer = setTimeout(() => {
       setOrderStatus("ready");
       toast({
         title: "Замовлення готове!",
         description: "Ваше замовлення готове до видачі.",
       });
-    }, 30000);
+    }, 20000);
+
+    // Change from ready to issued after 30 seconds
+    const issuedTimer = setTimeout(() => {
+      setOrderStatus("issued");
+      toast({
+        title: "Замовлення видано!",
+        description: "Ваше замовлення було видано.",
+      });
+    }, 35000);
+
+    // Change from issued to completed after 35 seconds
+    const completedTimer = setTimeout(() => {
+      setOrderStatus("completed");
+      toast({
+        title: "Замовлення завершено!",
+        description: "Дякуємо за ваше замовлення!",
+      });
+    }, 40000);
 
     return () => {
-      clearTimeout(acceptTimer);
       clearTimeout(prepareTimer);
       clearTimeout(readyTimer);
+      clearTimeout(issuedTimer);
+      clearTimeout(completedTimer);
     };
   }, [toast]);
 
   // Countdown timer
   useEffect(() => {
-    // Only count down if the order is accepted or preparing
-    if (orderStatus === "accepted" || orderStatus === "preparing") {
+    // Only count down if the order is preparing
+    if (orderStatus === "preparing") {
       const interval = setInterval(() => {
         setTimeRemaining((prev) => {
           if (prev <= 1) {
