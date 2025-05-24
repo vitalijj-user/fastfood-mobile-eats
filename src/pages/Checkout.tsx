@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, CreditCard } from "lucide-react";
+import { ArrowLeft, CreditCard, Plus, Check } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import NavigateHeader from "@/components/NavigateHeader";
@@ -19,12 +19,27 @@ import NavigateHeader from "@/components/NavigateHeader";
 const Checkout = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    cardNumber: "",
-    cardName: "",
-    expiryDate: "",
-    cvv: "",
-  });
+  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+
+  // Збережені картки користувача
+  const savedCards = [
+    {
+      id: 1,
+      last4: "4532",
+      brand: "Visa",
+      expiryMonth: 12,
+      expiryYear: 26,
+      holderName: "Іван Петренко"
+    },
+    {
+      id: 2,
+      last4: "5678",
+      brand: "Mastercard",
+      expiryMonth: 8,
+      expiryYear: 25,
+      holderName: "Іван Петренко"
+    }
+  ];
 
   // Normally we'd get this from a cart context or state manager
   const orderItems = [
@@ -49,22 +64,22 @@ const Checkout = () => {
   const deliveryFee = 50;
   const total = subtotal + deliveryFee;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!selectedCard) {
+      toast({
+        title: "Оберіть картку",
+        description: "Будь ласка, оберіть картку для оплати",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     toast({
       title: "Замовлення підтверджено!",
       description:
         "Дякуємо за ваше замовлення. Перенаправляємо на сторінку відстеження...",
     });
-    // In a real app, you would process the payment here
     setTimeout(() => {
       navigate("/order-details");
     }, 2000);
@@ -121,66 +136,51 @@ const Checkout = () => {
           <CardHeader>
             <CardTitle>Платіжні дані</CardTitle>
             <CardDescription>
-              Введіть дані вашої картки для оплати
+              Оберіть збережену картку для оплати
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="cardName">Ім'я власника картки</Label>
-                <Input
-                  id="cardName"
-                  name="cardName"
-                  placeholder="Ім'я та прізвище"
-                  value={formData.cardName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="cardNumber">Номер картки</Label>
-                <div className="relative">
-                  <Input
-                    id="cardNumber"
-                    name="cardNumber"
-                    placeholder="1234 5678 9012 3456"
-                    value={formData.cardNumber}
-                    onChange={handleChange}
-                    required
-                    className="pl-10"
-                    maxLength={19}
-                    pattern="\d{4} \d{4} \d{4} \d{4}"
-                  />
-                  <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="expiryDate">Термін дії</Label>
-                  <Input
-                    id="expiryDate"
-                    name="expiryDate"
-                    placeholder="MM/YY"
-                    value={formData.expiryDate}
-                    onChange={handleChange}
-                    required
-                    maxLength={5}
-                    pattern="\d{2}/\d{2}"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="cvv">CVV</Label>
-                  <Input
-                    id="cvv"
-                    name="cvv"
-                    type="password"
-                    placeholder="123"
-                    value={formData.cvv}
-                    onChange={handleChange}
-                    required
-                    maxLength={3}
-                    pattern="\d{3}"
-                  />
+              <div className="space-y-3">
+                {savedCards.map((card) => (
+                  <div
+                    key={card.id}
+                    className={`relative border rounded-lg p-4 cursor-pointer transition-all ${
+                      selectedCard === card.id
+                        ? "border-orange-500 bg-orange-50"
+                        : "border-gray-200 hover:border-gray-300"
+                    }`}
+                    onClick={() => setSelectedCard(card.id)}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="p-2 bg-white rounded border">
+                          <CreditCard className="h-4 w-4 text-gray-600" />
+                        </div>
+                        <div>
+                          <div className="font-medium">
+                            {card.brand} •••• {card.last4}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {card.holderName} • {card.expiryMonth.toString().padStart(2, '0')}/{card.expiryYear}
+                          </div>
+                        </div>
+                      </div>
+                      {selectedCard === card.id && (
+                        <div className="p-1 bg-orange-500 rounded-full">
+                          <Check className="h-3 w-3 text-white" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                
+                {/* Додати нову картку */}
+                <div className="border border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:border-gray-400 transition-colors">
+                  <div className="flex items-center justify-center space-x-2 text-gray-500">
+                    <Plus className="h-4 w-4" />
+                    <span>Додати нову картку</span>
+                  </div>
                 </div>
               </div>
 
@@ -188,6 +188,7 @@ const Checkout = () => {
                 <Button
                   type="submit"
                   className="w-full bg-orange-500 hover:bg-orange-600"
+                  disabled={!selectedCard}
                 >
                   Оплатити {total} ₴
                 </Button>
