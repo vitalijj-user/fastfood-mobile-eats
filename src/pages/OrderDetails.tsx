@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,14 +15,14 @@ import Container from "@/components/Container";
 import NavigateHeader from "@/components/NavigateHeader";
 import OrderStatus from "@/components/OrderStatus";
 
-// Order status types
-type OrderStatus = "pending" | "accepted" | "preparing" | "ready" | "completed";
+// Order status types - renamed to avoid conflict with component
+type OrderStatusType = "pending" | "accepted" | "preparing" | "ready" | "completed";
 
 const OrderDetails = () => {
   const { toast } = useToast();
 
   // In a real app, this would come from an API
-  const [orderStatus, setOrderStatus] = useState<OrderStatus>("pending");
+  const [orderStatus, setOrderStatus] = useState<OrderStatusType>("pending");
   const [timeRemaining, setTimeRemaining] = useState<number>(15 * 60); // 15 minutes in seconds
   const [orderItems] = useState([
     {
