@@ -27,9 +27,7 @@ const CartDetail = ({ subtotal, deliveryFee, total }: Props) => (
         </div>
       </div>
       <Link to="/checkout">
-        <Button className="w-full bg-orange-500 hover:bg-orange-600 mt-2">
-          Оформити замовлення
-        </Button>
+        <Button className="w-full mt-2">Оформити замовлення</Button>
       </Link>
     </CardContent>
   </Card>

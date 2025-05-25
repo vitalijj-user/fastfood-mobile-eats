@@ -8,11 +8,9 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, CreditCard, Plus, Check } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { CreditCard, Plus, Check } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import NavigateHeader from "@/components/NavigateHeader";
 
@@ -29,7 +27,7 @@ const Checkout = () => {
       brand: "Visa",
       expiryMonth: 12,
       expiryYear: 26,
-      holderName: "Іван Петренко"
+      holderName: "Іван Петренко",
     },
     {
       id: 2,
@@ -37,8 +35,8 @@ const Checkout = () => {
       brand: "Mastercard",
       expiryMonth: 8,
       expiryYear: 25,
-      holderName: "Іван Петренко"
-    }
+      holderName: "Іван Петренко",
+    },
   ];
 
   // Normally we'd get this from a cart context or state manager
@@ -70,11 +68,11 @@ const Checkout = () => {
       toast({
         title: "Оберіть картку",
         description: "Будь ласка, оберіть картку для оплати",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
-    
+
     toast({
       title: "Замовлення підтверджено!",
       description:
@@ -162,7 +160,9 @@ const Checkout = () => {
                             {card.brand} •••• {card.last4}
                           </div>
                           <div className="text-sm text-gray-500">
-                            {card.holderName} • {card.expiryMonth.toString().padStart(2, '0')}/{card.expiryYear}
+                            {card.holderName} •{" "}
+                            {card.expiryMonth.toString().padStart(2, "0")}/
+                            {card.expiryYear}
                           </div>
                         </div>
                       </div>
@@ -174,7 +174,7 @@ const Checkout = () => {
                     </div>
                   </div>
                 ))}
-                
+
                 {/* Додати нову картку */}
                 <div className="border border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:border-gray-400 transition-colors">
                   <div className="flex items-center justify-center space-x-2 text-gray-500">

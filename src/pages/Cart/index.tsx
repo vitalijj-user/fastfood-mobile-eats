@@ -8,6 +8,7 @@ import { ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCart } from "@/features/Cart";
 import { Badge } from "@/components/ui/badge";
+import LayoutBase from "@/components/LayoutBase";
 
 const Cart = () => {
   const {
@@ -22,7 +23,7 @@ const Cart = () => {
   } = useCart();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <LayoutBase>
       <NavigateHeader title="Кошик">
         {totalItems > 0 && (
           <Badge variant="outline" className="ml-2">
@@ -30,7 +31,6 @@ const Cart = () => {
           </Badge>
         )}
       </NavigateHeader>
-
       <Container>
         {cartItems.length > 0 ? (
           <div className="px-4 py-6">
@@ -70,7 +70,7 @@ const Cart = () => {
           </div>
         )}
       </Container>
-    </div>
+    </LayoutBase>
   );
 };
 

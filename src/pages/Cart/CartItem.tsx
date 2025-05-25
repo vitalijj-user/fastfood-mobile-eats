@@ -11,7 +11,7 @@ interface Props {
 }
 
 const CartItem = ({ item, increase, decrease, remove }: Props) => (
-  <Card className="border-0 shadow-sm">
+  <Card className="shadow-sm">
     <CardContent className="p-3">
       <div className="flex gap-3">
         <img
