@@ -12,7 +12,7 @@ export const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItemType[]>([
     {
       id: 1,
-      name: "Чізбургер Делюкс",
+      name: "Deluxe Cheeseburger",
       price: 199,
       image:
         "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop",
@@ -20,7 +20,7 @@ export const useCart = () => {
     },
     {
       id: 2,
-      name: "Маргарита",
+      name: "Margherita",
       price: 289,
       image:
         "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop",
