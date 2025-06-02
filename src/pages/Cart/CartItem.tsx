@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Trash2, Plus, Minus } from "lucide-react";
@@ -31,7 +32,7 @@ const CartItem = ({ item, increase, decrease, remove }: Props) => (
               <Trash2 className="h-4 w-4" />
             </Button>
           </div>
-          <p className="text-orange-500 font-semibold mt-1">{item.price} ₴</p>
+          <p className="text-orange-500 font-semibold mt-1">${item.price}</p>
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center border border-gray-200 rounded-lg">
               <Button
@@ -53,7 +54,7 @@ const CartItem = ({ item, increase, decrease, remove }: Props) => (
                 <Plus className="h-3 w-3" />
               </Button>
             </div>
-            <span className="font-bold">{item.price * item.quantity} ₴</span>
+            <span className="font-bold">${item.price * item.quantity}</span>
           </div>
         </div>
       </div>

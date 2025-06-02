@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 export const useMenuLogic = () => {
@@ -5,56 +6,52 @@ export const useMenuLogic = () => {
   const [favorites, setFavorites] = useState<number[]>([]);
 
   const categories = [
-    { id: 1, name: "Бургери", emoji: "🍔", active: true },
-    { id: 2, name: "Піца", emoji: "🍕", active: false },
-    { id: 3, name: "Напої", emoji: "🥤", active: false },
-    { id: 4, name: "Десерти", emoji: "🧁", active: false },
+    { id: 1, name: "Pizza", emoji: "🍕", active: true },
+    { id: 2, name: "Burgers", emoji: "🍔", active: false },
+    { id: 3, name: "Salads", emoji: "🥗", active: false },
+    { id: 4, name: "Drinks", emoji: "🥤", active: false },
+    { id: 5, name: "Desserts", emoji: "🍰", active: false },
   ];
 
   const featuredItems = [
     {
       id: 1,
-      name: "Чізбургер Делюкс",
+      name: "Deluxe Cheeseburger",
       price: 199,
       originalPrice: 249,
-      image:
-        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop",
-      time: "15-20 хв",
+      image: "/placeholder.svg",
+      time: "15-20 min",
       rating: 4.8,
       discount: 20,
       isNew: false,
     },
     {
       id: 2,
-      name: "Маргарита",
+      name: "Margherita",
       price: 289,
       originalPrice: null,
-      image:
-        "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop",
-      time: "20-25 хв",
+      image: "/placeholder.svg",
+      time: "20-25 min",
       rating: 4.9,
       discount: 0,
       isNew: true,
     },
     {
       id: 3,
-      name: "Куряче філе",
+      name: "Caesar Salad",
       price: 159,
-      originalPrice: 189,
-      image:
-        "https://images.unsplash.com/photo-1562967914-608f82629710?w=300&h=200&fit=crop",
-      time: "10-15 хв",
+      originalPrice: null,
+      image: "/placeholder.svg",
+      time: "10-15 min",
       rating: 4.7,
-      discount: 15,
+      discount: 0,
       isNew: false,
     },
   ];
 
-  const toggleFavorite = (itemId: number) => {
+  const toggleFavorite = (id: number) => {
     setFavorites((prev) =>
-      prev.includes(itemId)
-        ? prev.filter((id) => id !== itemId)
-        : [...prev, itemId],
+      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]
     );
   };
 
