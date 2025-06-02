@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +20,7 @@ const Checkout = () => {
   const { toast } = useToast();
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
 
-  // Збережені картки користувача
+  // User's saved cards
   const savedCards = [
     {
       id: 1,
@@ -27,7 +28,7 @@ const Checkout = () => {
       brand: "Visa",
       expiryMonth: 12,
       expiryYear: 26,
-      holderName: "Іван Петренко",
+      holderName: "John Doe",
     },
     {
       id: 2,
@@ -35,7 +36,7 @@ const Checkout = () => {
       brand: "Mastercard",
       expiryMonth: 8,
       expiryYear: 25,
-      holderName: "Іван Петренко",
+      holderName: "John Doe",
     },
   ];
 
@@ -43,13 +44,13 @@ const Checkout = () => {
   const orderItems = [
     {
       id: 1,
-      name: "Чізбургер Делюкс",
+      name: "Deluxe Cheeseburger",
       price: 199,
       quantity: 1,
     },
     {
       id: 2,
-      name: "Маргарита",
+      name: "Margherita",
       price: 289,
       quantity: 2,
     },
@@ -66,17 +67,17 @@ const Checkout = () => {
     e.preventDefault();
     if (!selectedCard) {
       toast({
-        title: "Оберіть картку",
-        description: "Будь ласка, оберіть картку для оплати",
+        title: "Select a card",
+        description: "Please select a card for payment",
         variant: "destructive",
       });
       return;
     }
 
     toast({
-      title: "Замовлення підтверджено!",
+      title: "Order confirmed!",
       description:
-        "Дякуємо за ваше замовлення. Перенаправляємо на сторінку відстеження...",
+        "Thank you for your order. Redirecting to tracking page...",
     });
     setTimeout(() => {
       navigate("/order-details");
@@ -86,15 +87,15 @@ const Checkout = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <NavigateHeader title="Оплата замовлення" link="/cart" />
+      <NavigateHeader title="Order Payment" link="/cart" />
 
       <div className="container max-w-xl mx-auto px-4 py-6">
         {/* Order Summary */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Ваше замовлення</CardTitle>
+            <CardTitle>Your Order</CardTitle>
             <CardDescription>
-              Перевірте деталі вашого замовлення
+              Review your order details
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -108,22 +109,22 @@ const Checkout = () => {
                     <span className="font-medium">{item.name}</span>
                     <span className="text-gray-500 ml-2">x{item.quantity}</span>
                   </div>
-                  <span>{item.price * item.quantity} ₴</span>
+                  <span>${item.price * item.quantity}</span>
                 </div>
               ))}
               <Separator className="my-2" />
               <div className="flex justify-between">
-                <span className="text-gray-600">Вартість страв</span>
-                <span>{subtotal} ₴</span>
+                <span className="text-gray-600">Food cost</span>
+                <span>${subtotal}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Доставка</span>
-                <span>{deliveryFee} ₴</span>
+                <span className="text-gray-600">Delivery</span>
+                <span>${deliveryFee}</span>
               </div>
               <Separator className="my-2" />
               <div className="flex justify-between font-bold">
-                <span>Всього до оплати</span>
-                <span>{total} ₴</span>
+                <span>Total to pay</span>
+                <span>${total}</span>
               </div>
             </div>
           </CardContent>
@@ -132,9 +133,9 @@ const Checkout = () => {
         {/* Payment Details */}
         <Card>
           <CardHeader>
-            <CardTitle>Платіжні дані</CardTitle>
+            <CardTitle>Payment Details</CardTitle>
             <CardDescription>
-              Оберіть збережену картку для оплати
+              Select a saved card for payment
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -175,11 +176,11 @@ const Checkout = () => {
                   </div>
                 ))}
 
-                {/* Додати нову картку */}
+                {/* Add new card */}
                 <div className="border border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:border-gray-400 transition-colors">
                   <div className="flex items-center justify-center space-x-2 text-gray-500">
                     <Plus className="h-4 w-4" />
-                    <span>Додати нову картку</span>
+                    <span>Add new card</span>
                   </div>
                 </div>
               </div>
@@ -190,7 +191,7 @@ const Checkout = () => {
                   className="w-full bg-orange-500 hover:bg-orange-600"
                   disabled={!selectedCard}
                 >
-                  Оплатити {total} ₴
+                  Pay ${total}
                 </Button>
               </CardFooter>
             </form>

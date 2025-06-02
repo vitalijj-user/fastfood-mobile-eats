@@ -24,10 +24,10 @@ interface Props {
 
 const getStatusText = (status: OrderStatus) => {
   const statusMap = {
-    pending: "Нове",
-    preparing: "Готується", 
-    ready: "Готово",
-    completed: "Виконано",
+    pending: "New",
+    preparing: "Preparing", 
+    ready: "Ready",
+    completed: "Completed",
   };
   return statusMap[status];
 };
@@ -46,9 +46,9 @@ const OrdersList = ({ orders }: Props) => {
   if (orders.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-gray-500 mb-4">У вас поки немає замовлень</p>
+        <p className="text-gray-500 mb-4">You don't have any orders yet</p>
         <Link to="/">
-          <Button>Зробити замовлення</Button>
+          <Button>Place an Order</Button>
         </Link>
       </div>
     );
@@ -64,7 +64,7 @@ const OrdersList = ({ orders }: Props) => {
           <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="font-semibold text-gray-900">
-                Замовлення {order.id}
+                Order {order.id}
               </h3>
               <p className="text-sm text-gray-500">{order.date}</p>
             </div>
@@ -74,7 +74,7 @@ const OrdersList = ({ orders }: Props) => {
           </div>
 
           <div className="mb-3">
-            <p className="text-sm text-gray-600 mb-1">Склад замовлення:</p>
+            <p className="text-sm text-gray-600 mb-1">Order items:</p>
             <div className="text-sm text-gray-800">
               {order.items.map((item, index) => (
                 <span key={index}>
@@ -87,11 +87,11 @@ const OrdersList = ({ orders }: Props) => {
 
           <div className="flex items-center justify-between">
             <div className="font-semibold text-lg">
-              {order.total} ₴
+              ${order.total}
             </div>
             <Link to="/order-details">
               <Button variant="outline" size="sm">
-                Деталі
+                Details
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             </Link>

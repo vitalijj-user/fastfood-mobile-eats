@@ -1,3 +1,4 @@
+
 import Container from "@/components/Container";
 import NavigateHeader from "@/components/NavigateHeader";
 import CartItem from "./CartItem";
@@ -24,10 +25,10 @@ const Cart = () => {
 
   return (
     <LayoutBase>
-      <NavigateHeader title="Кошик">
+      <NavigateHeader title="Cart">
         {totalItems > 0 && (
           <Badge variant="outline" className="ml-2">
-            {totalItems} {totalItems === 1 ? "товар" : "товари"}
+            {totalItems} {totalItems === 1 ? "item" : "items"}
           </Badge>
         )}
       </NavigateHeader>
@@ -58,13 +59,13 @@ const Cart = () => {
             <div className="bg-gray-100 p-6 rounded-full mb-4">
               <ShoppingBag className="h-12 w-12 text-gray-400" />
             </div>
-            <h2 className="text-xl font-bold mb-2">Ваш кошик порожній</h2>
+            <h2 className="text-xl font-bold mb-2">Your cart is empty</h2>
             <p className="text-gray-500 mb-6">
-              Додайте товари з меню, щоб зробити замовлення
+              Add items from the menu to place an order
             </p>
             <Link to="/">
               <Button className="bg-orange-500 hover:bg-orange-600">
-                Повернутися до меню
+                Back to Menu
               </Button>
             </Link>
           </div>

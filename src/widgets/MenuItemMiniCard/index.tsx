@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -89,10 +90,10 @@ const MenuItemMiniCard: React.FC<MenuItemMiniCardProps> = ({
 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <span className="font-bold text-orange-500">{price} ₴</span>
+                <span className="font-bold text-orange-500">${price}</span>
                 {originalPrice && (
                   <span className="text-xs text-gray-400 line-through">
-                    {originalPrice} ₴
+                    ${originalPrice}
                   </span>
                 )}
               </div>
@@ -101,7 +102,7 @@ const MenuItemMiniCard: React.FC<MenuItemMiniCardProps> = ({
                 className="rounded-xl h-8 px-3 text-xs font-semibold"
                 onClick={onAddToCart}
               >
-                Додати
+                Add
               </Button>
             </div>
           </div>

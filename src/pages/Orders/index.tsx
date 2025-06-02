@@ -14,8 +14,8 @@ const Orders = () => {
       status: "completed" as const,
       total: 777,
       items: [
-        { name: "Чізбургер Делюкс", quantity: 1 },
-        { name: "Маргарита", quantity: 2 },
+        { name: "Deluxe Cheeseburger", quantity: 1 },
+        { name: "Margherita", quantity: 2 },
       ],
     },
     {
@@ -24,8 +24,8 @@ const Orders = () => {
       status: "ready" as const,
       total: 450,
       items: [
-        { name: "Пепероні", quantity: 1 },
-        { name: "Кола", quantity: 1 },
+        { name: "Pepperoni", quantity: 1 },
+        { name: "Coke", quantity: 1 },
       ],
     },
     {
@@ -34,25 +34,25 @@ const Orders = () => {
       status: "preparing" as const,
       total: 320,
       items: [
-        { name: "Цезар салат", quantity: 1 },
+        { name: "Caesar Salad", quantity: 1 },
       ],
     },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <NavigateHeader title="Мої замовлення" link="/" />
+      <NavigateHeader title="My Orders" link="/" />
 
       <Container>
         <LayoutCard
-          title="Історія замовлень"
-          description="Переглядайте ваші попередні та поточні замовлення"
+          title="Order History"
+          description="View your previous and current orders"
           content={<OrdersList orders={orders} />}
         />
 
         <Link to="/" className="block">
           <Button className="w-full" variant="outline">
-            Повернутися на головну
+            Back to Home
           </Button>
         </Link>
       </Container>

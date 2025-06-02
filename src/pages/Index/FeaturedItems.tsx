@@ -1,3 +1,4 @@
+
 import MenuItemMiniCard from "@/widgets/MenuItemMiniCard";
 import { Button } from "@/components/ui/button";
 import Section from "@/components/Section";
@@ -14,10 +15,10 @@ const FeaturedItems = ({
   addToCart: () => void;
 }) => (
   <Section
-    headerTitle="Рекомендовані"
+    headerTitle="Featured"
     headerContent={
       <Button variant="ghost" size="sm">
-        Переглянути все
+        View All
       </Button>
     }
   >

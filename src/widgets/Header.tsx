@@ -14,7 +14,7 @@ const Header = ({ cartCount }: { cartCount: number }) => (
           </Button>
           <div>
             <h1 className="text-xl font-bold text-gray-900">FastBite</h1>
-            <p className="text-xs text-gray-500">Доставка за 30 хв</p>
+            <p className="text-xs text-gray-500">Delivery in 30 min</p>
           </div>
         </div>
         <div className="flex items-center space-x-2">

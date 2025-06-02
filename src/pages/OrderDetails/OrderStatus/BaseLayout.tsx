@@ -1,3 +1,4 @@
+
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import type { LucideIcon } from "lucide-react";
@@ -82,12 +83,12 @@ const isActiveStep = (current: OrderStatus, step: OrderStatus) => {
 const getStepLabel = (step: OrderStatus) => {
   switch (step) {
     case "pending":
-      return "Нове";
+      return "New";
     case "preparing":
-      return "Готується";
+      return "Preparing";
     case "ready":
-      return "Готово";
+      return "Ready";
     case "completed":
-      return "Виконано";
+      return "Completed";
   }
 };
